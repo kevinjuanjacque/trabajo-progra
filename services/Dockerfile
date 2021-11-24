@@ -2,13 +2,11 @@ FROM node:14 as base
 
 WORKDIR /home/node/app
 
-COPY package*.json ./
+COPY ./backend .
 
 RUN npm install -g typescript
 
 RUN npm i
-
-COPY ./backend .
 
 RUN tsc
 
