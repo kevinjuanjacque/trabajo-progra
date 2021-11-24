@@ -1,31 +1,55 @@
-FROM node:14 as base
+## SE GENERA EL FRONTD
+FROM node:13.12.0-alpine as build-react
 
-WORKDIR /home/node/app
+WORKDIR /app
 
-COPY ./backend .
+COPY ./frontend/package.json ./
+
+RUN npm i
+
+COPY ./frontend ./
+
+RUN npm run build
+
+## SE GENERA EL BACKEND
+FROM node:13.12.0-alpine as build-backend
+
+WORKDIR /app
+
+COPY ./backend/package.json ./
 
 RUN npm install -g typescript
 
 RUN npm i
 
-RUN tsc
-
-EXPOSE 8080/tcp
-
-WORKDIR /home/node/frontend
-
-COPY ./frontend .
-
-RUN npm i
+COPY ./backend ./
 
 RUN npm run build
 
-RUN mv ./build ../app/public
+##SE GENERA SERVICE
+FROM node:13.12.0-alpine  as prod
 
-WORKDIR /home/node/app
+RUN mkdir -p /app
 
-FROM base as production
+WORKDIR /app
 
-ENV NODE_PATH=./build
+COPY ./backend/package.json .
+COPY --from=build-backend /app/dist .
+COPY --from=build-react /app/build ./public
 
-RUN npm run build
+ENV PORT=8080
+ENV PGHOST=db
+ENV PGUSER=admin
+ENV PGDATABASE=prog_app
+ENV PGPASSWORD=admin
+ENV PGPORT=5432
+
+EXPOSE 8080
+
+RUN npm install 
+
+
+
+
+
+
