@@ -125,7 +125,9 @@ dmypy.json
 
 # dependencies
 /services/backend/node_modules
+/services/backend/package-lock.json
 /services/frontend/node_modules
+/services/frontend/package-lock.json
 
 /.pnp
 .pnp.js
