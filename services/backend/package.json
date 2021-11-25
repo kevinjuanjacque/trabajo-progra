@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "start": "NODE_PATH=./dist node dist/app.js",
-      "build": "tsc -p .",
-      "dev": "node dist/app.js",
-      "docker-run":"node app.js"
+    "start": "NODE_PATH=./dist node dist/app.js",
+    "build": "tsc -p .",
+    "dev": "node dist/app.js",
+    "docker-run": "node app.js"
   },
   "keywords": [],
   "author": "",

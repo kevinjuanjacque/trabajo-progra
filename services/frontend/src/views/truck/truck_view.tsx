@@ -1,19 +1,28 @@
-import { Card, Grid, CardContent, Typography } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { Grid } from "@mui/material";
+import { useEffect, useState } from "react";
 import api from "../../service/api_axios";
+import { AddTruck } from "./components/add_truck";
 import { CardTruck } from "./components/card_truck";
 import { ITruck } from "./interfaces/ITruck";
 
 export const TruckView = () => {
   const [Trucks, setTrucks] = useState([]);
+
+  const resetGetTrucksApi = async () => {
+    try {
+      const resp = await api("/api/truks");
+      setTrucks(resp.data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     let mounted = true;
     const getTrucksApi = async () => {
       try {
         const resp = await api("/api/truks");
         setTrucks(resp.data.data);
-        console.log(resp);
       } catch (error) {
         console.error(error);
       }
@@ -43,28 +52,7 @@ export const TruckView = () => {
           lg={3}
           style={{ margin: "1rem 0rem 0rem 0rem" }}
         >
-          <Card style={{ height: "100%", cursor: "pointer" }}>
-            <Grid container direction="column" justifyContent="center">
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                align="center"
-                color="text.secondary"
-              >
-                +
-              </Typography>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                align="center"
-                color="text.secondary"
-              >
-                Agregar nueva maquina
-              </Typography>
-            </Grid>
-          </Card>
+          <AddTruck callback={resetGetTrucksApi} />
         </Grid>
       </Grid>
     </>

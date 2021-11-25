@@ -53,3 +53,15 @@ export const getIncidentForTruck = async (req: Request, res: Response) => {
 		});
 	}
 };
+
+export const getStateTruck = async (req: Request, res: Response) => {
+	try {
+		const responseBd = await selectSimple(rowsTable.estadosTruks.nameTable);
+		return res.json({ data: responseBd.rows });
+	} catch (error) {
+		console.log(error);
+		res.json({
+			error
+		});
+	}
+};
