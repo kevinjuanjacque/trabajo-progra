@@ -124,7 +124,9 @@ dmypy.json
 
 
 # dependencies
-/node_modules
+/services/backend/node_modules
+/services/frontend/node_modules
+
 /.pnp
 .pnp.js
 
