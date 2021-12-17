@@ -96,6 +96,43 @@ export const getIncidentForTruck = async (req: Request, res: Response) => {
 	}
 };
 
+export const getAllIncident = async (req: Request, res: Response) => {
+	const response: QueryResult<IQueryIncident> = await selectSimple(
+		rowsTable.incident.nameTable,
+		null
+	);
+
+	const data = [];
+
+	for await (const incident of response.rows) {
+		const conditonUser: ICondition = {
+			key: rowsTable.users.id,
+			oper: "=",
+			val: incident.id_usuario
+		};
+		const user: QueryResult<IQueryUsers> = await selectSimple(
+			rowsTable.users.nameTable,
+			[conditonUser]
+		);
+		const conditionTruck: ICondition = {
+			key: rowsTable.truks.id,
+			oper: "=",
+			val: incident.id_maquina
+		};
+		const truck: QueryResult<IQueryTruck> = await selectSimple(
+			rowsTable.truks.nameTable,
+			[conditionTruck]
+		);
+
+		data.push({
+			...incident,
+			user: user.rows[0],
+			truck: truck.rows[0]
+		});
+	}
+	return res.json({ data: data });
+};
+
 export const getStateTruck = async (req: Request, res: Response) => {
 	try {
 		const responseBd = await selectSimple(rowsTable.estadosTruks.nameTable);

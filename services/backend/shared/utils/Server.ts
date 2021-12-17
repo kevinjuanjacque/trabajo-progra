@@ -16,20 +16,21 @@ export class Server {
 		this.app = express();
 		this.port = process.env.PORT ?? "3000";
 
-		this.connectDb();
 		this.middlewares();
 		this.routes();
 	}
 
 	connectDb() {
-		db.connect((e, client, done) => {
-			if (e) {
-				console.log("Ocurrio un error al intentar conectarse a la BD");
-				console.log(e);
-			} else {
-				console.log("Se conecto a la base de dato con exito");
-			}
-		});
+		setTimeout(function () {
+			db.connect((e, client, done) => {
+				if (e) {
+					console.log("Ocurrio un error al intentar conectarse a la BD");
+					console.log(e);
+				} else {
+					console.log("Se conecto a la base de dato con exito");
+				}
+			});
+		}, 20 * 1000);
 	}
 
 	middlewares() {

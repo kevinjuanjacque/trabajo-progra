@@ -26,6 +26,9 @@ export const HomeView = () => {
         direction="column"
         spacing={2}
         style={{ padding: "2rem 0rem 0rem 0rem" }}
+        onClick={() => {
+          navigate("/maquinaria/all/incidentes");
+        }}
       >
         <Button variant="contained">Ver todos los incidentes</Button>
       </Grid>
@@ -34,6 +37,9 @@ export const HomeView = () => {
         direction="column"
         spacing={2}
         style={{ padding: "2rem 0rem 0rem 0rem" }}
+        onClick={() => {
+          navigate("/maquinaria/all/users");
+        }}
       >
         <Button variant="contained">Ver todo los usuarios</Button>
       </Grid>

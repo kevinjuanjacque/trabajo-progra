@@ -18,6 +18,8 @@ services:
       context: ./services
       dockerfile: Dockerfile
       target: prod
+    env_file:
+      - ./services/backend/.env
     container_name: ts-node-docker
     restart: always
     ports:

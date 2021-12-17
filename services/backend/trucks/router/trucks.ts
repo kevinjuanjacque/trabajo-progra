@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
 	createTrucks,
+	getAllIncident,
 	getAllTruks,
 	getIncidentForTruck,
 	getStateTruck,
@@ -17,5 +18,6 @@ router.get("/:id/incident", getIncidentForTruck);
 router.get("/states", getStateTruck);
 
 router.post("/:id/incident", setIncidenTruck);
+router.get("/incidents", getAllIncident);
 
 export default router;

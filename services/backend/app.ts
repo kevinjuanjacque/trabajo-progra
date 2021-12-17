@@ -5,4 +5,5 @@ dotenv.config();
 
 const app = new Server();
 
+app.connectDb();
 app.listen();
